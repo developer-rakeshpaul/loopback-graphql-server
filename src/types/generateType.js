@@ -1,18 +1,19 @@
+'use strict';
 
 const _ = require('lodash');
 
 const {
-	GraphQLObjectType,
+  GraphQLObjectType,
   GraphQLInputObjectType,
-	GraphQLEnumType,
-	GraphQLList,
-  GraphQLNonNull
+  GraphQLEnumType,
+  GraphQLList,
+  GraphQLNonNull,
 } = require('graphql');
 
 const {
-	globalIdField,
-	fromGlobalId,
-	nodeDefinitions: relayNodeDefinitions,
+  globalIdField,
+  fromGlobalId,
+  nodeDefinitions: relayNodeDefinitions,
 } = require('graphql-relay');
 
 // const type = require('./type');
@@ -30,7 +31,7 @@ let nodeDefinitions = {};
  * @param {*} _models
  */
 function init(_models) {
-  _.forEach(_models, (model) =>  {
+  _.forEach(_models, model => {
     models[model.modelName] = model;
   });
 
@@ -43,7 +44,6 @@ function init(_models) {
  * @param {*} type
  */
 const processIdField = (name, type) => {
-
   if (!models[name] || !models[name].getIdName) {
     return;
   }
@@ -79,7 +79,12 @@ function generateFieldArgs(field) {
       return;
     }
 
-    args[argName] = { type: (arg.required === true) ? new GraphQLNonNull(getType(arg.type)) : getType(arg.type) };
+    args[argName] = {
+      type:
+        arg.required === true
+          ? new GraphQLNonNull(getType(arg.type))
+          : getType(arg.type),
+    };
   });
 
   return args;
@@ -92,7 +97,6 @@ function generateTypeFields(def) {
   const fields = {};
 
   _.forEach(def.meta.fields, (field, fieldName) => {
-
     field = _.clone(field);
 
     if (field.meta.hidden === true) {
@@ -104,7 +108,7 @@ function generateTypeFields(def) {
 
     // If it's an id field, make it a globalId
     if (fieldName === 'id' && def.meta.input !== true) {
-      fields.id = globalIdField(def.name, (o) => {
+      fields.id = globalIdField(def.name, o => {
         try {
           const idName = models[def.name].getIdName();
           return o[idName];
@@ -116,12 +120,18 @@ function generateTypeFields(def) {
     }
 
     if (field.meta.relation === true) {
-      field.type = (field.meta.isMany === true) ? getConnection(field.meta.type) : getType(field.meta.type);
+      field.type =
+        field.meta.isMany === true
+          ? getConnection(field.meta.type)
+          : getType(field.meta.type);
     } else if (field.meta.list) {
       // field.type = getConnection(field.meta.type);
       field.type = new GraphQLList(getType(field.meta.type));
     } else {
-      field.type = (field.meta.required === true) ? new GraphQLNonNull(getType(field.meta.type)) : getType(field.meta.type);
+      field.type =
+        field.meta.required === true
+          ? new GraphQLNonNull(getType(field.meta.type))
+          : getType(field.meta.type);
     }
 
     // Field arguments
@@ -160,7 +170,6 @@ function generateType(name, def) {
   processIdField(name, def);
 
   if (def.meta.category === 'TYPE') {
-
     def.fields = () => generateTypeFields(def);
 
     if (def.meta.input === true) {
@@ -170,7 +179,9 @@ function generateType(name, def) {
     return new GraphQLObjectType(def);
   } else if (def.category === 'ENUM') {
     const values = {};
-    _.forEach(def.values, (val) => { values[val] = { value: val }; });
+    _.forEach(def.values, val => {
+      values[val] = { value: val };
+    });
     def.values = values;
 
     return new GraphQLEnumType(def);
@@ -185,7 +196,7 @@ function generateNodeDefinitions(models) {
   nodeDefinitions = relayNodeDefinitions(
     (globalId, context, { rootValue }) => {
       const { type, id } = fromGlobalId(globalId);
-      return models[type].findById(id).then((obj) => {
+      return models[type].findById(id).then(obj => {
         obj.__typename = type;
         return Promise.resolve(obj);
       });
@@ -204,5 +215,5 @@ function getNodeDefinitions() {
 module.exports = {
   init,
   generateType,
-  getNodeDefinitions
+  getNodeDefinitions,
 };

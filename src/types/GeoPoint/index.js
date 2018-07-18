@@ -1,3 +1,5 @@
+'use strict';
+
 const loopback = require('loopback');
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
             scalar: true,
             type: 'Float',
           },
-          resolve: obj => obj.lat
+          resolve: obj => obj.lat,
         },
         lng: {
           generated: false,
@@ -21,7 +23,7 @@ module.exports = {
             scalar: true,
             type: 'Float',
           },
-          resolve: obj => obj.lng
+          resolve: obj => obj.lng,
         },
         distanceTo: {
           generated: false,
@@ -32,23 +34,23 @@ module.exports = {
               point: {
                 generated: false,
                 required: true,
-                type: 'GeoPointInput'
+                type: 'GeoPointInput',
               },
               options: {
                 generated: false,
-                type: 'JSON'
-              }
-            }
+                type: 'JSON',
+              },
+            },
           },
           resolve: (obj, { point, options }) => {
             const here = new loopback.GeoPoint(obj);
             const there = new loopback.GeoPoint(point);
 
             return loopback.GeoPoint.distanceBetween(here, there, options);
-          }
+          },
         },
-      }
-    }
+      },
+    },
   },
   GeoPointInput: {
     name: 'GeoPointInput',
@@ -63,7 +65,7 @@ module.exports = {
             scalar: true,
             required: true,
             type: 'Float',
-          }
+          },
         },
         lng: {
           generated: false,
@@ -71,9 +73,9 @@ module.exports = {
             scalar: true,
             required: true,
             type: 'Float',
-          }
-        }
-      }
-    }
-  }
+          },
+        },
+      },
+    },
+  },
 };
