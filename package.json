@@ -46,7 +46,7 @@
         "lintfix": "eslint --fix src/ --ext .js --ignore-path .gitignore",
         "precommit": "npm run lint"
     },
-    "version": "1.2.0",
+    "version": "1.2.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/yahoohung/loopback-graphql-server.git"

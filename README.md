@@ -1,17 +1,19 @@
 # A Reply based GraphQL Server for Loopback
 
-Combine the powers of GraphQL with the backend of Loopback to automatically generate GraphQL endpoints based on Loopback Schema. 
+Combine the powers of GraphQL with the backend of Loopback to automatically generate GraphQL endpoints based on Loopback Schema.
 
 ## Installation
 
 ```sh
 npm i loopback-graphql-server -S
 ```
-Add the loopback-graphql-server component to the `server/component-config.json`: 
+
+Add the loopback-graphql-server component to the `server/component-config.json`:
 
 ```
 "loopback-graphql-server": {
   "path": "/graphql",
+  "schemaPath": "./schema.graphql",
   "graphiqlPath": "/graphiql",
   "modelMutationGroups": false,
   "modelQueryGroups": true
@@ -23,17 +25,21 @@ Requests will be posted to `path` path. (Default: `/graphql`);
 Graphiql is available on `graphiqlPath` path. (Default: `/graphiql`);
 
 ## Starter
+
 (https://github.com/yahoohung/loopback-graphql-starter)
 
 ## ACL and role mapping
-- Auto on/off access control 
+
+- Auto on/off access control
 - Enable loopback based ACL configuration
 
 ## Access token
+
 - Accepts AccessToken for authenticated API calls
 - Get access token in operation hooks
 
 ## Queries
+
 - `node` query to fetch single entity by ID
 - Filter support for `where` with operators(https://loopback.io/doc/en/lb3/Where-filter.html) and `order` filters on queries
 - Support for relations and querying related data
@@ -41,19 +47,23 @@ Graphiql is available on `graphiqlPath` path. (Default: `/graphiql`);
 - Data pagination support by using navtive loopback function (`limit`, `offset`)
 - Graphql Pagination (`first`, `last`, `before`, `after`)
 - Remote methods integration
-- Display total count number 
+- Display total count number
 - Allow to select single level or nested schema
 
 ## Mutations
+
 - Single level schema structure
 - Maps all `post`, `put`, `patch` and `delete` methods to mutations
 - Remote methods integration
 
 ## Subscriptions
+
 - Deprecated
 
 ## Other Features
+
 ### Loopback Types
+
 - [x] Any
 - [x] Array
 - [x] Boolean
@@ -66,6 +76,7 @@ Graphiql is available on `graphiqlPath` path. (Default: `/graphiql`);
 - [x] String
 
 ### Loopback Relations
+
 - [x] BelongsTo
 - [x] HasOne
 - [x] HasMany
@@ -77,7 +88,9 @@ Graphiql is available on `graphiqlPath` path. (Default: `/graphiql`);
 - [x] ReferencesMany
 
 ### Todo
+
 - [ ] File uploads
 
 ## Inspiration
-This repository originally started as a fork of the [loopback-graphql](https://github.com/Tallyb/loopback-graphql) project by [Tallyb](https://github.com/Tallyb) and the [loopback-graphql-relay](https://github.com/BlueEastCode/loopback-graphql-relay) by [BlueEastCode](https://github.com/BlueEastCode). I have fixed many bugs and tested on enterprise environment. This version is ready for production use. 
+
+This repository originally started as a fork of the [loopback-graphql](https://github.com/Tallyb/loopback-graphql) project by [Tallyb](https://github.com/Tallyb) and the [loopback-graphql-relay](https://github.com/BlueEastCode/loopback-graphql-relay) by [BlueEastCode](https://github.com/BlueEastCode). I have fixed many bugs and tested on enterprise environment. This version is ready for production use.

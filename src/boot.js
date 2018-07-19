@@ -14,9 +14,10 @@ module.exports = function(app, options) {
 
   if (models.length >= 1) {
     const schema = getSchema(models, options);
+    const schemaPath = options.schemaPath || require('path').join(__dirname, './schema.graphql');
 
     fs.writeFileSync(
-      require('path').join(__dirname, './schema.graphql'),
+      schemaPath,
       printSchema(schema)
     );
 
