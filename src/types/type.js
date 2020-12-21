@@ -13,7 +13,7 @@ const {
 const { connectionDefinitions } = require('graphql-relay');
 const CustomGraphQLDateType = require('./Date');
 const GeoPointType = require('./GeoPoint/GeoPointType.js');
-const GraphQLJSON = require('graphql-type-json');
+const { GraphQLJSON } = require('graphql-type-json');
 
 const { getTypeDef } = require('./generateTypeDefs');
 const { init, generateType, getNodeDefinitions } = require('./generateType');
@@ -24,7 +24,7 @@ const { init, generateType, getNodeDefinitions } = require('./generateType');
 const types = {};
 const connectionTypes = {};
 
-const getScalar = name => {
+const getScalar = (name) => {
   switch (name) {
     case 'ID':
       return GraphQLID;
@@ -63,7 +63,7 @@ const getScalar = name => {
  * Get or create connection object
  * @param {*} name
  */
-const getConnection = name => {
+const getConnection = (name) => {
   if (!connectionTypes[name]) {
     connectionTypes[name] = connectionDefinitions({
       name,
@@ -72,7 +72,7 @@ const getConnection = name => {
         totalCount: {
           type: GraphQLInt,
           description: 'Total number of items',
-          resolve: connection => {
+          resolve: (connection) => {
             if (connection.totalCount) {
               return connection.totalCount;
             } else if (connection.edges) {
@@ -90,7 +90,7 @@ const getConnection = name => {
  * Get a type by name
  * @param {*} name
  */
-const getType = name => {
+const getType = (name) => {
   if (types[name]) {
     return types[name];
   }
@@ -116,7 +116,7 @@ const getType = name => {
 function buildTypes(models) {
   init(models);
 
-  _.forEach(models, model => {
+  _.forEach(models, (model) => {
     getType(model.modelName);
   });
 

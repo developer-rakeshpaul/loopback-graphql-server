@@ -43,7 +43,7 @@ function getScalar(type) {
 }
 
 function toTypes(union) {
-  return _.map(union, type => (getScalar(type) ? getScalar(type) : type));
+  return _.map(union, (type) => (getScalar(type) ? getScalar(type) : type));
 }
 
 /**
@@ -201,7 +201,7 @@ function isManyRelation(type) {
  * @param {*} relName
  */
 function mapRelation(rel, modelName, relName) {
-  let acceptingParams = Object.assign(
+  const acceptingParams = Object.assign(
     {},
     {
       filter: {
@@ -232,7 +232,7 @@ function mapRelation(rel, modelName, relName) {
         resolve(true);
       })
         .then(() => {
-          let params = {};
+          const params = {};
 
           _.forEach(acceptingParams, (param, name) => {
             if (
@@ -261,7 +261,7 @@ function mapRelation(rel, modelName, relName) {
           //     return wrap;
           // }
         })
-        .catch(err => {
+        .catch((err) => {
           throw err;
         });
     },
@@ -286,7 +286,7 @@ function mapType(model) {
     mapProperty(model, property, model.modelName, key);
   });
 
-  _.forEach(sharedRelations(model), rel => {
+  _.forEach(sharedRelations(model), (rel) => {
     mapRelation(rel, model.modelName, rel.name);
   });
 }
@@ -314,7 +314,7 @@ function mapInputType(model) {
 }
 
 function sharedRelations(model) {
-  return _.pickBy(model.relations, rel => rel.modelTo && rel.modelTo.shared);
+  return _.pickBy(model.relations, (rel) => rel.modelTo && rel.modelTo.shared);
 }
 
 function getTypeDef(name) {
@@ -334,7 +334,7 @@ function getCustomTypeDefs() {
 function generateTypeDefs(models) {
   types = Object.assign({}, types, getCustomTypeDefs());
 
-  _.forEach(models, model => {
+  _.forEach(models, (model) => {
     mapType(model);
     mapInputType(model);
   });

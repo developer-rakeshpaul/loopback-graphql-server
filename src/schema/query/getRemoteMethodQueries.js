@@ -14,7 +14,7 @@ module.exports = function getRemoteMethodQueries(model, options) {
   const hooks = {};
 
   if (model.sharedClass && model.sharedClass.methods) {
-    model.sharedClass.methods().forEach(method => {
+    model.sharedClass.methods().forEach((method) => {
       if (
         method.name.indexOf('Stream') === -1 &&
         method.name.indexOf('invoke') === -1
@@ -42,7 +42,7 @@ module.exports = function getRemoteMethodQueries(model, options) {
           args: acceptingParams,
           type: typeObj.type,
           resolve: (__, args, context, info) => {
-            let modelId = args && args.id;
+            const modelId = args && args.id;
             return checkAccess({
               accessToken: context.req.accessToken,
               model: model,
@@ -52,7 +52,7 @@ module.exports = function getRemoteMethodQueries(model, options) {
               options: options,
             })
               .then(() => {
-                let params = [];
+                const params = [];
 
                 _.forEach(acceptingParams, (param, name) => {
                   if (args[name] && Object.keys(args[name]).length > 0) {
@@ -63,8 +63,8 @@ module.exports = function getRemoteMethodQueries(model, options) {
                     }
                   }
                 });
-                let ctxOptions = { accessToken: context.req.accessToken };
-                let wrap = promisify(
+                const ctxOptions = { accessToken: context.req.accessToken };
+                const wrap = promisify(
                   model[method.name](
                     params.length > 1 ? _.merge(...params) : params[0],
                     ctxOptions
@@ -77,7 +77,7 @@ module.exports = function getRemoteMethodQueries(model, options) {
                   return wrap;
                 }
               })
-              .catch(err => {
+              .catch((err) => {
                 throw err;
               });
           },

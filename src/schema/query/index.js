@@ -7,7 +7,7 @@ const getRemoteMethodQueries = require('./getRemoteMethodQueries');
 
 function generateModelFields(models, options) {
   const modelFields = {};
-  _.forEach(models, model => {
+  _.forEach(models, (model) => {
     const fields = Object.assign({}, getRemoteMethodQueries(model, options));
 
     if (_.size(fields) === 0) {
@@ -24,7 +24,7 @@ function generateModelFields(models, options) {
         }),
       };
     } else {
-      for (let key in fields) {
+      for (const key in fields) {
         modelFields[key] = {
           resolve: (root, args, context) => ({}),
           type: new GraphQLObjectType({
@@ -40,7 +40,7 @@ function generateModelFields(models, options) {
   return modelFields;
 }
 
-module.exports = function(models, options) {
+module.exports = function (models, options) {
   const fields = Object.assign({}, generateModelFields(models, options));
 
   return new GraphQLObjectType({

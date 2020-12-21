@@ -15,7 +15,7 @@ module.exports = {
             scalar: true,
             type: 'Float',
           },
-          resolve: obj => obj.lat,
+          resolve: (obj) => obj.lat,
         },
         lng: {
           generated: false,
@@ -23,7 +23,7 @@ module.exports = {
             scalar: true,
             type: 'Float',
           },
-          resolve: obj => obj.lng,
+          resolve: (obj) => obj.lng,
         },
         distanceTo: {
           generated: false,

@@ -1,54 +1,59 @@
 {
-    "author": {
-        "name": "Marshall Chan",
-        "email": "yahoohung@gmail.com"
-    },
-    "bugs": {
-        "url": "https://github.com/yahoohung/loopback-graphql-server/issues"
-    },
-    "bundleDependencies": [],
-    "dependencies": {
-        "apollo-server-express": "^2.0.0-rc.12",
-        "async": "^2.6.1",
-        "body-parser": "^1.18.1",
-        "graphql": "^0.13.2",
-        "graphql-relay": "^0.5.2",
-        "graphql-type-json": "^0.2.1",
-        "lodash": "^4.17.10",
-        "promisify-node": "^0.5.0"
-    },
-    "deprecated": false,
-    "description": "Add Relay based Apollo Server or GraphQL queries on your Loopback server",
-    "devDependencies": {
-        "eslint": "^4.19.1",
-        "eslint-config-loopback": "^10.0.0",
-        "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-prettier": "^2.6.2",
-        "loopback": "^3.0.0",
-        "prettier": "^1.13.7"
-    },
-    "homepage": "https://github.com/yahoohung/loopback-graphql-server#readme",
-    "keywords": [
-        "Loopback",
-        "GraphQL",
-        "Apollo",
-        "Express",
-        "Javascript",
-        "REST",
-        "APIs"
-    ],
-    "license": "MIT",
-    "main": "src/index.js",
-    "name": "loopback-graphql-server",
-    "optionalDependencies": {},
-    "scripts": {
-        "lint": "eslint .",
-        "lintfix": "eslint --fix src/ --ext .js --ignore-path .gitignore",
-        "precommit": "npm run lint"
-    },
-    "version": "1.2.1",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/yahoohung/loopback-graphql-server.git"
-    }
+  "author": {
+    "name": "Marshall Chan",
+    "email": "yahoohung@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yahoohung/loopback-graphql-server/issues"
+  },
+  "bundleDependencies": [],
+  "dependencies": {
+    "apollo-server-express": "^2.19.0",
+    "async": "^3.2.0",
+    "body-parser": "^1.19.0",
+    "graphql": "^15.4.0",
+    "graphql-relay": "^0.6.0",
+    "graphql-type-json": "^0.3.2",
+    "lodash": "^4.17.20",
+    "promisify-node": "^0.5.0"
+  },
+  "deprecated": false,
+  "description": "Add Relay based Apollo Server or GraphQL queries on your Loopback server",
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-loopback": "^13.1.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "husky": "^4.3.6",
+    "nodemon": "^2.0.6",
+    "loopback": "^3.28.0",
+    "prettier": "^2.2.1"
+  },
+  "peerDependencies": {
+    "graphql": "^15.x"
+  },
+  "homepage": "https://github.com/yahoohung/loopback-graphql-server#readme",
+  "keywords": [
+    "Loopback",
+    "GraphQL",
+    "Apollo",
+    "Express",
+    "Javascript",
+    "REST",
+    "APIs"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "loopback-graphql-server",
+  "optionalDependencies": {},
+  "scripts": {
+    "lint": "eslint .",
+    "lintfix": "eslint --fix src/ --ext .js --ignore-path .gitignore",
+    "precommit": "npm run lint"
+  },
+  "version": "1.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yahoohung/loopback-graphql-server.git"
+  }
 }

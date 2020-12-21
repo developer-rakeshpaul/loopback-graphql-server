@@ -31,7 +31,7 @@ let nodeDefinitions = {};
  * @param {*} _models
  */
 function init(_models) {
-  _.forEach(_models, model => {
+  _.forEach(_models, (model) => {
     models[model.modelName] = model;
   });
 
@@ -108,7 +108,7 @@ function generateTypeFields(def) {
 
     // If it's an id field, make it a globalId
     if (fieldName === 'id' && def.meta.input !== true) {
-      fields.id = globalIdField(def.name, o => {
+      fields.id = globalIdField(def.name, (o) => {
         try {
           const idName = models[def.name].getIdName();
           return o[idName];
@@ -179,7 +179,7 @@ function generateType(name, def) {
     return new GraphQLObjectType(def);
   } else if (def.category === 'ENUM') {
     const values = {};
-    _.forEach(def.values, val => {
+    _.forEach(def.values, (val) => {
       values[val] = { value: val };
     });
     def.values = values;
@@ -196,12 +196,12 @@ function generateNodeDefinitions(models) {
   nodeDefinitions = relayNodeDefinitions(
     (globalId, context, { rootValue }) => {
       const { type, id } = fromGlobalId(globalId);
-      return models[type].findById(id).then(obj => {
+      return models[type].findById(id).then((obj) => {
         obj.__typename = type;
         return Promise.resolve(obj);
       });
     },
-    obj => getType(obj.__typename)
+    (obj) => getType(obj.__typename)
   );
 }
 

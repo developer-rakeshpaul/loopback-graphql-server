@@ -4,7 +4,7 @@ const _ = require('lodash');
 const utils = require('./utils');
 
 function connectionFromPromisedArray(dataPromise, args, model) {
-  return dataPromise.then(data => connectionFromArray(data, args, model));
+  return dataPromise.then((data) => connectionFromArray(data, args, model));
 }
 
 function connectionFromArray(obj, args, model) {
@@ -13,7 +13,7 @@ function connectionFromArray(obj, args, model) {
   const res = {
     totalCount: obj.count ? obj.count : obj.length,
 
-    edges: _.map(obj.list, node => ({
+    edges: _.map(obj.list, (node) => ({
       cursor: utils.idToCursor(node[idName]),
       node,
     })),

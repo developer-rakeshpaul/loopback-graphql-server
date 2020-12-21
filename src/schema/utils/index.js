@@ -29,7 +29,7 @@ function isRemoteMethodAllowed(method, allowedVerbs) {
     httpArray = [method.http];
   }
 
-  const results = httpArray.map(item => {
+  const results = httpArray.map((item) => {
     const verb = item.verb;
 
     if (allowedVerbs && !_.includes(allowedVerbs, verb)) {
@@ -51,7 +51,7 @@ function isRemoteMethodAllowed(method, allowedVerbs) {
 function getRemoteMethodInput(method, isConnection = false) {
   const acceptingParams = {};
 
-  method.accepts.forEach(param => {
+  method.accepts.forEach((param) => {
     let paramType = '';
     if (typeof param.type === 'object') {
       paramType = 'JSON';

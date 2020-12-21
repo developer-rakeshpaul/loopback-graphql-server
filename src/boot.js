@@ -6,20 +6,18 @@ const { printSchema } = require('graphql/utilities');
 
 const fs = require('fs');
 
-module.exports = function(app, options) {
-  let models = [];
-  app.models().forEach(function(element) {
+module.exports = function (app, options) {
+  const models = [];
+  app.models().forEach(function (element) {
     if (element.shared) models.push(element);
   });
 
   if (models.length >= 1) {
     const schema = getSchema(models, options);
-    const schemaPath = options.schemaPath || require('path').join(__dirname, './schema.graphql');
+    const schemaPath =
+      options.schemaPath || require('path').join(__dirname, './schema.graphql');
 
-    fs.writeFileSync(
-      schemaPath,
-      printSchema(schema)
-    );
+    fs.writeFileSync(schemaPath, printSchema(schema));
 
     const path = options.path || '/graphql';
 

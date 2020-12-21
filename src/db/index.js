@@ -18,7 +18,7 @@ function getFirst(model, obj, args) {
       order: idName + (args.before ? ' DESC' : ' ASC'),
       where: args.where,
     })
-    .then(res => res || {});
+    .then((res) => res || {});
 }
 
 function findOne(model, obj, args, context) {
@@ -38,11 +38,11 @@ function findAll(model, obj, args, context) {
     list: undefined,
   };
   return getCount(model, obj, args, undefined)
-    .then(count => {
+    .then((count) => {
       response.count = count;
       return getFirst(model, obj, args);
     })
-    .then(first => {
+    .then((first) => {
       response.first = first;
       return getList(
         model,
@@ -50,7 +50,7 @@ function findAll(model, obj, args, context) {
         Object.assign({}, args, { count: response.count })
       );
     })
-    .then(list => {
+    .then((list) => {
       response.list = list;
       return response;
     });
@@ -67,10 +67,10 @@ function findAllRelated(model, obj, method, args, context) {
   return new Promise((resolve, reject) => {
     waterfall(
       [
-        function(callback) {
+        function (callback) {
           obj[`__count__${method}`](args.where, callback);
         },
-        function(count, callback) {
+        function (count, callback) {
           response.count = count;
 
           const idName =
@@ -83,7 +83,7 @@ function findAllRelated(model, obj, method, args, context) {
             callback
           );
         },
-        function(first, callback) {
+        function (first, callback) {
           response.first = first;
           obj[`__get__${method}`](
             buildFilter(
@@ -116,10 +116,10 @@ function findAllViaThrough(rel, obj, args, context) {
   return new Promise((resolve, reject) => {
     waterfall(
       [
-        function(callback) {
+        function (callback) {
           obj[`__count__${rel.name}`](args.where, callback);
         },
-        function(count, callback) {
+        function (count, callback) {
           response.count = count;
 
           const idName =
@@ -134,7 +134,7 @@ function findAllViaThrough(rel, obj, args, context) {
             callback
           );
         },
-        function(first, callback) {
+        function (first, callback) {
           response.first = first;
           obj[`__get__${rel.name}`](
             buildFilter(

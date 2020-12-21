@@ -16,7 +16,7 @@ const { connectionFromPromisedArray } = require('../../db/resolveConnection');
 function getRelatedModelFields(User) {
   const fields = {};
 
-  _.forEach(User.relations, relation => {
+  _.forEach(User.relations, (relation) => {
     const model = relation.modelTo;
 
     fields[_.lowerFirst(relation.name)] = {
@@ -35,13 +35,15 @@ function getRelatedModelFields(User) {
       resolve: (obj, args, context) => {
         if (!context.req.accessToken) return null;
 
-        return findUserFromAccessToken(context.req.accessToken, User).then(
-          user =>
-            connectionFromPromisedArray(
-              findAllRelated(User, user, relation.name, args, context),
-              args,
-              model
-            )
+        return findUserFromAccessToken(
+          context.req.accessToken,
+          User
+        ).then((user) =>
+          connectionFromPromisedArray(
+            findAllRelated(User, user, relation.name, args, context),
+            args,
+            model
+          )
         );
       },
     };
@@ -58,7 +60,7 @@ function getRelatedModelFields(User) {
 function findUserFromAccessToken(accessToken, UserModel) {
   if (!accessToken) return null;
 
-  return UserModel.findById(accessToken.userId).then(user => {
+  return UserModel.findById(accessToken.userId).then((user) => {
     if (!user)
       return Promise.reject('No user with this access token was found.');
     return Promise.resolve(user);
@@ -86,7 +88,7 @@ function getMeField(User) {
  * Generates Viewer query
  * @param {*} models
  */
-module.exports = function(models, options) {
+module.exports = function (models, options) {
   if (!options.viewer) return {};
 
   const opts = Object.assign(
@@ -99,7 +101,7 @@ module.exports = function(models, options) {
     options.viewer || {}
   );
 
-  const User = _.find(models, model => model.modelName === opts.UserModel);
+  const User = _.find(models, (model) => model.modelName === opts.UserModel);
 
   const Viewer = {
     resolve: (root, args, context) => ({}),

@@ -18,13 +18,13 @@
     "xdescribe": true,
     "xit": true
   },
-  "extends": ["loopback", "prettier"],
+  "extends": ["loopback", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true, "trailingComma": "es5" }],
+    "prettier/prettier": "error",
     "max-len": [
       "error",
-      100,
+      120,
       4,
       {
         "ignoreComments": true,

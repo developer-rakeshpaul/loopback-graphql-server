@@ -1,8 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
-
 const {
+  fromGlobalId,
   mutationWithClientMutationId,
   connectionFromPromisedArray,
 } = require('graphql-relay');
@@ -18,7 +18,7 @@ module.exports = function getRemoteMethodMutations(model) {
   const hooks = {};
 
   if (model.sharedClass && model.sharedClass.methods) {
-    model.sharedClass.methods().forEach(method => {
+    model.sharedClass.methods().forEach((method) => {
       if (
         method.name.indexOf('Stream') === -1 &&
         method.name.indexOf('invoke') === -1
@@ -47,11 +47,14 @@ module.exports = function getRemoteMethodMutations(model) {
           outputFields: {
             obj: {
               type: typeObj.type,
-              resolve: o => o,
+              resolve: (o) => o,
             },
           },
           mutateAndGetPayload: (args, context) => {
             let modelId = args && args.id;
+            if (modelId) {
+              modelId = _.get(fromGlobalId(modelId), 'id', modelId);
+            }
             return checkAccess({
               accessToken: context.req.accessToken,
               model: model,
@@ -59,7 +62,7 @@ module.exports = function getRemoteMethodMutations(model) {
               id: modelId,
             })
               .then(() => {
-                let params = [];
+                const params = [];
 
                 _.forEach(acceptingParams, (param, name) => {
                   if (args[name] && Object.keys(args[name]).length > 0) {
@@ -78,7 +81,9 @@ module.exports = function getRemoteMethodMutations(model) {
                   ctxOptions = { accessToken: context.req.accessToken };
                 }
 
-                let wrap = promisify(model[method.name](...params, ctxOptions));
+                const wrap = promisify(
+                  model[method.name](...params, ctxOptions)
+                );
 
                 if (typeObj.list) {
                   return connectionFromPromisedArray(wrap, args, model);
@@ -86,7 +91,7 @@ module.exports = function getRemoteMethodMutations(model) {
                   return wrap;
                 }
               })
-              .catch(err => {
+              .catch((err) => {
                 throw err;
               });
           },

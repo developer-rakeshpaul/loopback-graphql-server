@@ -17,8 +17,8 @@ function getSchema(models, options) {
 }
 
 function buildSchema(app, options) {
-  let models = [];
-  app.models().forEach(function(element) {
+  const models = [];
+  app.models().forEach(function (element) {
     if (element.shared) models.push(element);
   });
 

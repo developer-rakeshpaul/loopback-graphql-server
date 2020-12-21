@@ -9,11 +9,11 @@ const Type = new GraphQLObjectType({
   fields: {
     lat: {
       type: new GraphQLNonNull(GraphQLFloat),
-      resolve: obj => obj.lat,
+      resolve: (obj) => obj.lat,
     },
     lng: {
       lng: new GraphQLNonNull(GraphQLFloat),
-      resolve: obj => obj.lng,
+      resolve: (obj) => obj.lng,
     },
   },
 });
