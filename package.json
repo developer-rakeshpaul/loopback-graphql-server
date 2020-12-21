@@ -11,7 +11,6 @@
     "apollo-server-express": "^2.19.0",
     "async": "^3.2.0",
     "body-parser": "^1.19.0",
-    "graphql": "^15.4.0",
     "graphql-relay": "^0.6.0",
     "graphql-type-json": "^0.3.2",
     "lodash": "^4.17.20",
@@ -26,10 +25,10 @@
     "eslint-plugin-prettier": "^3.3.0",
     "husky": "^4.3.6",
     "nodemon": "^2.0.6",
-    "loopback": "^3.28.0",
     "prettier": "^2.2.1"
   },
   "peerDependencies": {
+    "loopback": "^3.28.0",
     "graphql": "^15.x"
   },
   "homepage": "https://github.com/yahoohung/loopback-graphql-server#readme",
