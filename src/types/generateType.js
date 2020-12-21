@@ -17,7 +17,7 @@ const {
 } = require('graphql-relay');
 
 // const type = require('./type');
-let { getType, getConnection } = require('./type');
+// let { getType, getConnection } = require('./type');
 const { generateTypeDefs } = require('./generateTypeDefs');
 
 /**
@@ -69,6 +69,7 @@ const processIdField = (name, type) => {
 };
 
 function generateFieldArgs(field) {
+  const getType = require('./type').getType;
   const args = {};
 
   _.forEach(field.meta.args, (arg, argName) => {
@@ -91,8 +92,8 @@ function generateFieldArgs(field) {
 }
 
 function generateTypeFields(def) {
-  getType = require('./type').getType;
-  getConnection = require('./type').getConnection;
+  const getType = require('./type').getType;
+  const getConnection = require('./type').getConnection;
 
   const fields = {};
 
@@ -193,6 +194,7 @@ function generateType(name, def) {
  * @param {*} models
  */
 function generateNodeDefinitions(models) {
+  const getType = require('./type').getType;
   nodeDefinitions = relayNodeDefinitions(
     (globalId, context, { rootValue }) => {
       const { type, id } = fromGlobalId(globalId);
